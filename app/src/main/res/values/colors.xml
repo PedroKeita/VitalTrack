@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#BBDEFB</color>
+
+    <!-- Secondary -->
+    <color name="secondary">#00BCD4</color>
+    <color name="secondary_dark">#00838F</color>
+
+    <!-- Background -->
+    <color name="background">#F8FAFB</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_hint">#9CA3AF</color>
+
+    <!-- Modules -->
+    <color name="hydration">#2196F3</color>
+    <color name="sleep">#7C3AED</color>
+    <color name="activity">#10B981</color>
+    <color name="nutrition">#F59E0B</color>
+
+    <!-- Status -->
+    <color name="success">#10B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+
+    <!-- Dark theme -->
+    <color name="background_dark">#0F172A</color>
+    <color name="surface_dark">#1E293B</color>
 </resources>

@@ -1,3 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VitalTrack</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_step1_title">Olá! Vamos começar</string>
+    <string name="onboarding_step1_subtitle">Como podemos te chamar?</string>
+    <string name="onboarding_step2_title">Suas medidas</string>
+    <string name="onboarding_step2_subtitle">Usamos para calcular suas metas</string>
+    <string name="onboarding_step3_title">Nível de atividade</string>
+    <string name="onboarding_step3_subtitle">Como é sua rotina hoje?</string>
+
+    <!-- Labels -->
+    <string name="label_name">Nome</string>
+    <string name="label_age">Idade</string>
+    <string name="label_weight">Peso (kg)</string>
+    <string name="label_height">Altura (cm)</string>
+    <string name="label_activity_level">Nível de atividade</string>
+
+    <!-- Activity levels -->
+    <string name="activity_sedentary">Sedentário</string>
+    <string name="activity_light">Levemente ativo</string>
+    <string name="activity_moderate">Moderadamente ativo</string>
+    <string name="activity_active">Ativo</string>
+    <string name="activity_very_active">Muito ativo</string>
+
+    <!-- Buttons -->
+    <string name="btn_next">Próximo</string>
+    <string name="btn_back">Voltar</string>
+    <string name="btn_finish">Começar</string>
+    <string name="btn_save">Salvar</string>
+    <string name="btn_edit">Editar perfil</string>
+
+    <!-- Validation -->
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="error_invalid_age">Idade inválida</string>
+    <string name="error_invalid_weight">Peso inválido</string>
+    <string name="error_invalid_height">Altura inválida</string>
+
+    <!-- Dashboard -->
+    <string name="greeting_morning">Bom dia</string>
+    <string name="greeting_afternoon">Boa tarde</string>
+    <string name="greeting_evening">Boa noite</string>
+
+    <!-- Modules -->
+    <string name="module_hydration">Hidratação</string>
+    <string name="module_sleep">Sono</string>
+    <string name="module_activity">Atividade</string>
+    <string name="module_nutrition">Nutrição</string>
+    <string name="module_stats">Estatísticas</string>
+    <string name="module_profile">Perfil</string>
 </resources>
