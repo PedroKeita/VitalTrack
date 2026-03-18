@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/onboarding_step3_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/onboarding_step3_subtitle"
+        android:textSize="16sp"
+        android:textColor="@color/text_secondary" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp">
+
+        <RadioButton
+            android:id="@+id/radioSedentary"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/activity_sedentary"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioLight"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/activity_light" />
+
+        <RadioButton
+            android:id="@+id/radioModerate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/activity_moderate" />
+
+        <RadioButton
+            android:id="@+id/radioActive"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/activity_active" />
+
+        <RadioButton
+            android:id="@+id/radioVeryActive"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/activity_very_active" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="@string/btn_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFinish"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="@string/btn_finish" />
+
+    </LinearLayout>
+
+</LinearLayout>
