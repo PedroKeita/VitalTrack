@@ -1,0 +1,35 @@
+# Android Studio
+.idea/
+*.iml
+.DS_Store
+/local.properties
+/.gradle
+/captures
+
+# Build
+/build
+/app/build
+
+# Keystore (NUNCA versionar)
+*.jks
+*.keystore
+
+# Google Maps API Key (se colocar no local.properties)
+local.properties
+
+# Navigation generated args
+app/src/main/java/com/vitaltrack/app/ui/**/*Args.kt
+app/src/main/java/com/vitaltrack/app/ui/**/*Directions.kt
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
