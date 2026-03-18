@@ -8,6 +8,7 @@ import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.fragment.app.Fragment
 import com.vitaltrack.app.databinding.FragmentOnboardingStep1Binding
 import com.vitaltrack.app.ui.activity.OnboardingActivity
+import com.vitaltrack.app.R
 
 class StepOneFragment : Fragment() {
 
@@ -44,19 +45,19 @@ class StepOneFragment : Fragment() {
         val age = binding.etAge.text.toString().trim()
 
         if (name.isEmpty()) {
-            binding.tilName.error = getString(com.vitaltrack.app.R.string.error_field_required)
+            binding.tilName.error = getString(R.string.error_field_required)
             isValid = false
         } else {
             binding.tilName.error = null
         }
 
         if (age.isEmpty()) {
-            binding.tilAge.error = getString(com.vitaltrack.app.R.string.error_field_required)
+            binding.tilAge.error = getString(R.string.error_field_required)
             isValid = false
         }
 
         else if (age.toIntOrNull() == null || age.toInt() < 1 || age.toInt() > 120){
-            binding.tilAge.error = getString(com.vitaltrack.app.R.string.error_field_required)
+            binding.tilAge.error = getString(R.string.error_field_required)
             isValid = false
         }
 
