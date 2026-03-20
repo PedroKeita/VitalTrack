@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:weightSum="1">
+
+
 
     <!-- Logo -->
     <com.google.android.material.button.MaterialButton
@@ -97,7 +100,6 @@
     <!-- Botão Próximo -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
-        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:text="@string/btn_next" />
