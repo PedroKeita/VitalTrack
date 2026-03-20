@@ -10,6 +10,7 @@ import com.vitaltrack.app.ui.profile.ProfileViewModel
 import com.vitaltrack.app.ui.profile.ProfileUiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.jvm.java
 
 @AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity() {
@@ -73,6 +74,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun goToDashboard() {
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.fragment.app.Fragment
 import com.vitaltrack.app.databinding.FragmentOnboardingStep1Binding
 import com.vitaltrack.app.ui.activity.OnboardingActivity
@@ -28,6 +27,11 @@ class StepOneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
+            val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
+                    as android.view.inputmethod.InputMethodManager
+            imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+            binding.etAge.clearFocus()
+
             if (validate()) {
                 val activity = requireActivity() as OnboardingActivity
                 activity.name = binding.etName.text.toString().trim()
