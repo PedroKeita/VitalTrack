@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,10 +34,15 @@ class StepCounterViewModel @Inject constructor(
 
     private var userWeight = 70f
     private var initialSteps = -1
+    private var lastSavedDate = today()
 
     init {
         loadTodaySteps()
         loadUserGoal()
+    }
+
+    private fun today(): String {
+        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     }
 
     private fun loadTodaySteps() {
@@ -63,19 +70,27 @@ class StepCounterViewModel @Inject constructor(
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
             val totalSteps = event.values[0].toInt()
+            val currentDate = today()
 
+            // reinicia à meia-noite
+            if (currentDate != lastSavedDate) {
+                initialSteps = totalSteps
+                lastSavedDate = currentDate
+                _steps.value = 0
+            }
+
+            // inicializa o offset na primeira leitura
             if (initialSteps == -1) {
                 initialSteps = totalSteps - _steps.value
             }
 
             val todaySteps = totalSteps - initialSteps
             _steps.value = todaySteps
+            _calories.value = todaySteps * 0.04f * userWeight / 70f
 
             viewModelScope.launch {
                 stepCounterRepository.saveSteps(todaySteps, userWeight)
             }
-
-            _calories.value = todaySteps * 0.04f * userWeight / 70f
         }
     }
 
@@ -84,7 +99,11 @@ class StepCounterViewModel @Inject constructor(
     fun registerSensor(sensorManager: SensorManager) {
         val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         if (sensor != null) {
-            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI)
+            sensorManager.registerListener(
+                this,
+                sensor,
+                SensorManager.SENSOR_DELAY_UI
+            )
         }
     }
 

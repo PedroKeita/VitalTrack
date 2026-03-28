@@ -1,6 +1,7 @@
 package com.vitaltrack.app.ui.activity_module
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.SensorManager
 import android.os.Build
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.vitaltrack.app.databinding.FragmentActivityBinding
+import com.vitaltrack.app.service.StepCounterService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -68,6 +70,15 @@ class ActivityFragment : Fragment() {
 
     private fun startStepCounter() {
         viewModel.registerSensor(sensorManager)
+
+
+        // inicia o service em background
+        val intent = Intent(requireContext(), StepCounterService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            requireContext().startForegroundService(intent)
+        } else {
+            requireContext().startService(intent)
+        }
     }
 
     private fun observeViewModel() {

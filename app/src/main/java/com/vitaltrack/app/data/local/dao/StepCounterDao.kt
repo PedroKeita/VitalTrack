@@ -18,4 +18,7 @@ interface StepCounterDao {
 
     @Query("SELECT * FROM step_counter ORDER BY date DESC LIMIT 7")
     fun getLast7Days(): Flow<List<StepCounterEntity>>
+
+    @Query("SELECT steps FROM step_counter WHERE date = :date LIMIT 1")
+    suspend fun getStepsByDateOnce(date: String): Int?
 }
