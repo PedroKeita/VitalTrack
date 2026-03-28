@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.vitaltrack.app.databinding.FragmentActivityBinding
 import com.vitaltrack.app.service.StepCounterService
+import com.vitaltrack.app.ui.activity.MapActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +27,8 @@ class ActivityFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: StepCounterViewModel by viewModels()
     private lateinit var sensorManager: SensorManager
+
+    private val historyAdapter = HistoryAdapter()
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -47,6 +50,12 @@ class ActivityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        // configura RecyclerView
+        binding.rvHistory.apply {
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+            adapter = historyAdapter
+        }
 
         checkPermissionAndStart()
         observeViewModel()
@@ -79,6 +88,10 @@ class ActivityFragment : Fragment() {
         } else {
             requireContext().startService(intent)
         }
+
+        binding.btnStartOutdoor.setOnClickListener {
+            startActivity(Intent(requireContext(), MapActivity::class.java))
+        }
     }
 
     private fun observeViewModel() {
@@ -98,6 +111,11 @@ class ActivityFragment : Fragment() {
                     binding.tvGoal.text = "Meta: $goal passos"
                 }
             }
+            launch {
+                viewModel.trackingHistory.collect { history ->
+                    historyAdapter.submitList(history)
+                }
+            }
         }
     }
 
@@ -115,4 +133,6 @@ class ActivityFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
