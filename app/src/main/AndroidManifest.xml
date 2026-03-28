@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VitalTrack">
 
-        <!-- Activity principal - ponto de entrada -->
+        <!-- Splash  -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +29,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
+        <!-- Dashboard -->
         <activity
             android:name=".ui.activity.DashboardActivity"
             android:exported="false"
