@@ -28,6 +28,8 @@ class ActivityFragment : Fragment() {
     private val viewModel: StepCounterViewModel by viewModels()
     private lateinit var sensorManager: SensorManager
 
+    private val historyAdapter = HistoryAdapter()
+
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -48,6 +50,12 @@ class ActivityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        // configura RecyclerView
+        binding.rvHistory.apply {
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+            adapter = historyAdapter
+        }
 
         checkPermissionAndStart()
         observeViewModel()
@@ -101,6 +109,11 @@ class ActivityFragment : Fragment() {
             launch {
                 viewModel.goal.collect { goal ->
                     binding.tvGoal.text = "Meta: $goal passos"
+                }
+            }
+            launch {
+                viewModel.trackingHistory.collect { history ->
+                    historyAdapter.submitList(history)
                 }
             }
         }

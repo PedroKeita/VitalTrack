@@ -6,6 +6,8 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vitaltrack.app.data.local.entity.GpsTrackingEntity
+import com.vitaltrack.app.data.repository.GpsTrackingRepository
 import com.vitaltrack.app.data.repository.StepCounterRepository
 import com.vitaltrack.app.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class StepCounterViewModel @Inject constructor(
     private val stepCounterRepository: StepCounterRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val gpsTrackingRepository: GpsTrackingRepository
 ) : ViewModel(), SensorEventListener {
 
     private val _steps = MutableStateFlow(0)
@@ -36,9 +39,15 @@ class StepCounterViewModel @Inject constructor(
     private var initialSteps = -1
     private var lastSavedDate = today()
 
+    private val _trackingHistory = MutableStateFlow<List<GpsTrackingEntity>>(emptyList())
+
+    val trackingHistory: StateFlow<List<GpsTrackingEntity>> = _trackingHistory.asStateFlow()
+
+
     init {
         loadTodaySteps()
         loadUserGoal()
+        loadTrackingHistory()
     }
 
     private fun today(): String {
@@ -52,6 +61,14 @@ class StepCounterViewModel @Inject constructor(
                     _steps.value = entity.steps
                     _calories.value = entity.calories
                 }
+            }
+        }
+    }
+
+    private fun loadTrackingHistory() {
+        viewModelScope.launch {
+            gpsTrackingRepository.getAllTrackings().collect {
+                _trackingHistory.value = it
             }
         }
     }
@@ -93,6 +110,8 @@ class StepCounterViewModel @Inject constructor(
             }
         }
     }
+
+
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
