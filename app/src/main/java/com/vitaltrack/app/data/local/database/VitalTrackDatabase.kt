@@ -12,7 +12,7 @@ import com.vitaltrack.app.data.local.entity.UserEntity
         UserEntity::class,
         StepCounterEntity::class
                ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 

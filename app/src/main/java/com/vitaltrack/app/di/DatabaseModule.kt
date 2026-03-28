@@ -23,7 +23,9 @@ object DatabaseModule {
             context,
             VitalTrackDatabase::class.java,
             "vitaltrack.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

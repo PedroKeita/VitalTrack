@@ -37,10 +37,16 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
+        <!-- Profile -->
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- Activity Module -->
+        <activity
+            android:name=".ui.activity.ActivityModuleActivity"
+            android:exported="false" />
 
     </application>
 
