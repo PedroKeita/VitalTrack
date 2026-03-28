@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
+
+
+
     <application
         android:name=".VitalTrackApp"
         android:allowBackup="true"
@@ -35,10 +41,21 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
+        <!-- Profile -->
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- Activity Module -->
+        <activity
+            android:name=".ui.activity.ActivityModuleActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".service.StepCounterService"
+            android:foregroundServiceType="health"
+            android:exported="false" />
 
     </application>
 

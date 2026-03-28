@@ -36,6 +36,10 @@ class DashboardActivity : AppCompatActivity() {
         binding.cardProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+
+        binding.cardActivity.setOnClickListener {
+            startActivity(Intent(this, ActivityModuleActivity::class.java))
+        }
     }
 
 

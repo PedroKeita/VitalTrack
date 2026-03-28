@@ -2,6 +2,7 @@ package com.vitaltrack.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.vitaltrack.app.data.local.dao.StepCounterDao
 import com.vitaltrack.app.data.local.database.VitalTrackDatabase
 import com.vitaltrack.app.data.local.dao.UserDao
 import dagger.Module
@@ -22,11 +23,18 @@ object DatabaseModule {
             context,
             VitalTrackDatabase::class.java,
             "vitaltrack.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
     fun provideUserDao(database: VitalTrackDatabase): UserDao {
         return database.userDao()
+    }
+
+    @Provides
+    fun provideStepCounterDao(database: VitalTrackDatabase): StepCounterDao {
+        return database.setpCounterDao()
     }
 }
