@@ -1,5 +1,6 @@
 package com.vitaltrack.app.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,5 +32,11 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.cardProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
     }
+
+
 }

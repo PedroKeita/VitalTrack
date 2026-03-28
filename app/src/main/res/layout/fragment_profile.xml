@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meu Perfil"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:text="Edite seus dados e metas"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Nome -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/label_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Idade -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAge"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/label_age">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Peso -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilWeight"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/label_weight">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Altura -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilHeight"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="@string/label_height">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Nível de atividade -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/label_activity_level"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/radioSedentary"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/activity_sedentary" />
+
+            <RadioButton
+                android:id="@+id/radioLight"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/activity_light" />
+
+            <RadioButton
+                android:id="@+id/radioModerate"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/activity_moderate" />
+
+            <RadioButton
+                android:id="@+id/radioActive"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/activity_active" />
+
+            <RadioButton
+                android:id="@+id/radioVeryActive"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/activity_very_active" />
+
+        </RadioGroup>
+
+        <!-- Metas calculadas -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Metas calculadas"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/tvWaterGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/tvStepsGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Botão Salvar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/btn_save" />
+
+    </LinearLayout>
+
+</ScrollView>
