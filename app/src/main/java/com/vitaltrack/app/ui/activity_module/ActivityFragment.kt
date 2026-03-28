@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.vitaltrack.app.databinding.FragmentActivityBinding
 import com.vitaltrack.app.service.StepCounterService
+import com.vitaltrack.app.ui.activity.MapActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -79,6 +80,10 @@ class ActivityFragment : Fragment() {
         } else {
             requireContext().startService(intent)
         }
+
+        binding.btnStartOutdoor.setOnClickListener {
+            startActivity(Intent(requireContext(), MapActivity::class.java))
+        }
     }
 
     private fun observeViewModel() {
@@ -115,4 +120,6 @@ class ActivityFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

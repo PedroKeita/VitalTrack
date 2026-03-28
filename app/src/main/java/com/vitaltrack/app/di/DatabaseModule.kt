@@ -2,6 +2,7 @@ package com.vitaltrack.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.vitaltrack.app.data.local.dao.GpsTrackingDao
 import com.vitaltrack.app.data.local.dao.StepCounterDao
 import com.vitaltrack.app.data.local.database.VitalTrackDatabase
 import com.vitaltrack.app.data.local.dao.UserDao
@@ -35,6 +36,11 @@ object DatabaseModule {
 
     @Provides
     fun provideStepCounterDao(database: VitalTrackDatabase): StepCounterDao {
-        return database.setpCounterDao()
+        return database.stepCounterDao()
+    }
+
+    @Provides
+    fun provideGpsTrackingDao(database: VitalTrackDatabase): GpsTrackingDao {
+        return database.gpsTrackingDao()
     }
 }
