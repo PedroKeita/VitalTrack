@@ -10,8 +10,12 @@ interface MealDao {
     @Insert
     suspend fun insert(meal: MealEntity)
 
+    @Update
+    suspend fun update(meal: MealEntity)
+
     @Delete
     suspend fun delete(meal: MealEntity)
+
 
     @Query("SELECT * FROM meal WHERE date = :date ORDER BY time DESC")
     fun getByDate(date: String): Flow<List<MealEntity>>
