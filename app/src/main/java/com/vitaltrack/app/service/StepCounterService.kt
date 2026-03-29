@@ -81,6 +81,10 @@ class StepCounterService : Service(), SensorEventListener {
 
             currentSteps = totalSteps - initialSteps
 
+            getSharedPreferences("vital_prefs", Context.MODE_PRIVATE)
+                .edit().putInt("current_steps", currentSteps).apply()
+
+
             scope.launch {
                 stepCounterRepository.saveSteps(currentSteps, userWeight)
             }
