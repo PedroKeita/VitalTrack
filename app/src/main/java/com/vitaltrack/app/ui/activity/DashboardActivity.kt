@@ -44,6 +44,10 @@ class DashboardActivity : AppCompatActivity() {
         binding.cardHydration.setOnClickListener {
             startActivity(Intent(this, HydrationActivity::class.java))
         }
+
+        binding.cardSleep.setOnClickListener {
+            startActivity(Intent(this, SleepActivity::class.java))
+        }
     }
 
 
