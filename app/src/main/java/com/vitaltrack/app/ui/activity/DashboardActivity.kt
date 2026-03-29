@@ -48,6 +48,10 @@ class DashboardActivity : AppCompatActivity() {
         binding.cardSleep.setOnClickListener {
             startActivity(Intent(this, SleepActivity::class.java))
         }
+
+        binding.cardNutrition.setOnClickListener {
+            startActivity(Intent(this, NutritionActivity::class.java))
+        }
     }
 
 

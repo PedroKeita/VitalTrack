@@ -197,6 +197,7 @@
 
             <!-- Nutrição -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardNutrition"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
