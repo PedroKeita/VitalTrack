@@ -16,9 +16,15 @@ interface SleepDao {
     @Query("SELECT * FROM sleep WHERE endTime IS NOT NULL ORDER BY id DESC LIMIT 1")
     fun getLatest(): Flow<SleepEntity?>
 
-    @Query("SELECT * FROM sleep ORDER BY date DESC LIMIT 7")
+    @Query("SELECT * FROM sleep WHERE endTime IS NOT NULL ORDER BY id DESC LIMIT 7")
     fun getLast7Days(): Flow<List<SleepEntity>>
 
     @Query("SELECT * FROM sleep WHERE endTime IS NULL LIMIT 1")
     suspend fun getOngoing(): SleepEntity?
+
+    @Query("SELECT * FROM sleep WHERE endTime IS NOT NULL ORDER BY id DESC LIMIT 2")
+    suspend fun getLastTwo(): List<SleepEntity>
+
+    @Delete
+    suspend fun delete(sleep: SleepEntity)
 }

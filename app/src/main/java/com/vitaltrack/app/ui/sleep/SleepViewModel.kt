@@ -26,8 +26,17 @@ class SleepViewModel @Inject constructor(
     private val _latest = MutableStateFlow<SleepEntity?>(null)
     val latest: StateFlow<SleepEntity?> = _latest.asStateFlow()
 
-    private val _history = MutableStateFlow<List<SleepEntity>>(emptyList())
-    val history: StateFlow<List<SleepEntity>> = _history.asStateFlow()
+    private val _history = MutableStateFlow<List<SleepWithScore>>(emptyList())
+    val history: StateFlow<List<SleepWithScore>> = _history.asStateFlow()
+
+    private val _score = MutableStateFlow(0)
+    val score: StateFlow<Int> = _score.asStateFlow()
+
+    private val _tip = MutableStateFlow("")
+    val tip: StateFlow<String> = _tip.asStateFlow()
+
+    private val _classification = MutableStateFlow("")
+    val classification: StateFlow<String> = _classification.asStateFlow()
 
     private var ongoingSleep: SleepEntity? = null
     private var agitationThreshold = 2f
@@ -37,13 +46,32 @@ class SleepViewModel @Inject constructor(
         checkOngoing()
     }
 
+
+
     private fun loadData() {
         viewModelScope.launch {
             launch {
-                sleepRepository.getLatest().collect { _latest.value = it }
+                sleepRepository.getLatest().collect { sleep ->
+                    _latest.value = sleep
+                    if (sleep?.endTime != null) {
+                        val lastTwo = sleepRepository.getLastTwo()
+                        val previous = if (lastTwo.size >= 2) lastTwo[1] else null
+                        val s = sleepRepository.calculateScore(sleep, previous)
+                        _score.value = s
+                        _classification.value = sleepRepository.getClassification(s)
+                        _tip.value = sleepRepository.getTip(s)
+                    }
+                }
             }
             launch {
-                sleepRepository.getLast7Days().collect { _history.value = it }
+                sleepRepository.getLast7Days().collect { list ->
+                    _history.value = list
+                        .filter { it.endTime != null }
+                        .map { sleep ->
+                            val s = sleepRepository.calculateScore(sleep, null)
+                            SleepWithScore(sleep, s, sleepRepository.getClassification(s))
+                        }
+                }
             }
         }
     }
@@ -83,7 +111,6 @@ class SleepViewModel @Inject constructor(
 
     fun saveSleepManual(startTime: String, endTime: String) {
         viewModelScope.launch {
-            // insere o registro completo de uma vez
             val sleep = SleepEntity(
                 date = today(),
                 startTime = startTime,
@@ -96,6 +123,8 @@ class SleepViewModel @Inject constructor(
                 endTime = endTime,
                 durationMinutes = sleep.durationMinutes ?: 0
             )
+            // força recarregar o histórico
+            loadData()
         }
     }
 
@@ -123,6 +152,12 @@ class SleepViewModel @Inject constructor(
 
     fun unregisterSensor(sensorManager: SensorManager) {
         sensorManager.unregisterListener(this)
+    }
+
+    fun delete(item: SleepWithScore) {
+        viewModelScope.launch {
+            sleepRepository.delete(item.sleep)
+        }
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
