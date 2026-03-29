@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vitaltrack.app.databinding.FragmentSleepBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,6 +23,7 @@ class SleepFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: SleepViewModel by viewModels()
     private lateinit var sensorManager: SensorManager
+    private val historyAdapter = SleepHistoryAdapter { viewModel.delete(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +38,11 @@ class SleepFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        binding.rvHistory.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = historyAdapter
+        }
 
         setupButtons()
         observeViewModel()
@@ -113,6 +119,30 @@ class SleepFragment : Fragment() {
                 }
             }
             launch {
+                viewModel.score.collect { score ->
+                    if (score > 0) {
+                        binding.tvScore.visibility = View.VISIBLE
+                        binding.tvScore.text = "$score"
+                    }
+                }
+            }
+            launch {
+                viewModel.classification.collect { classification ->
+                    if (classification.isNotEmpty()) {
+                        binding.tvClassification.visibility = View.VISIBLE
+                        binding.tvClassification.text = classification
+                    }
+                }
+            }
+            launch {
+                viewModel.tip.collect { tip ->
+                    if (tip.isNotEmpty()) {
+                        binding.tvTip.visibility = View.VISIBLE
+                        binding.tvTip.text = tip
+                    }
+                }
+            }
+            launch {
                 viewModel.latest.collect { sleep ->
                     if (sleep?.endTime != null) {
                         val hours = (sleep.durationMinutes ?: 0) / 60
@@ -120,6 +150,11 @@ class SleepFragment : Fragment() {
                         binding.tvLastSleep.text =
                             "Última noite: ${sleep.startTime} → ${sleep.endTime} (${hours}h ${mins}min)"
                     }
+                }
+            }
+            launch {
+                viewModel.history.collect { history ->
+                    historyAdapter.submitList(history)
                 }
             }
         }
