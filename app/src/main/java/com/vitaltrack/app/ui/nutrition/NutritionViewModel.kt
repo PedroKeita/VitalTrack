@@ -52,6 +52,12 @@ class NutritionViewModel @Inject constructor(
         }
     }
 
+    fun updateMeal(meal: MealEntity) {
+        viewModelScope.launch {
+            mealRepository.update(meal)
+        }
+    }
+
     fun deleteMeal(meal: MealEntity) {
         viewModelScope.launch {
             mealRepository.delete(meal)

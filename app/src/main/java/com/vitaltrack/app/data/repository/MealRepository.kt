@@ -22,6 +22,8 @@ class MealRepository @Inject constructor(
 
     fun getTodayCalories(): Flow<Int?> = mealDao.getTotalCaloriesByDate(today())
 
+    suspend fun update(meal: MealEntity) = mealDao.update(meal)
+
     suspend fun saveMeal(
         description: String,
         category: String,

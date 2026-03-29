@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vitaltrack.app.data.local.entity.MealEntity
 import com.vitaltrack.app.databinding.FragmentNutritionBinding
 import com.vitaltrack.app.ui.activity.ScannerActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +27,10 @@ class NutritionFragment : Fragment() {
     private var _binding: FragmentNutritionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NutritionViewModel by viewModels()
-    private val adapter = MealAdapter { viewModel.deleteMeal(it) }
+    private val adapter = MealAdapter(
+        onDelete = { viewModel.deleteMeal(it) },
+        onEdit = { showEditDialog(it) }
+    )
 
     private val scannerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -145,6 +149,70 @@ class NutritionFragment : Fragment() {
 
     private fun showManualDialog() {
         showConfirmDialog(ScannedNutrition(0, 0f, 0f, 0f))
+    }
+
+    private fun showEditDialog(meal: MealEntity) {
+        val layout = android.widget.LinearLayout(requireContext())
+        layout.orientation = android.widget.LinearLayout.VERTICAL
+        layout.setPadding(48, 24, 48, 0)
+
+        val etDescription = android.widget.EditText(requireContext()).apply {
+            hint = "Descrição"
+            setText(meal.description)
+        }
+        val etCalories = android.widget.EditText(requireContext()).apply {
+            hint = "Calorias"
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER
+            setText(meal.calories.toString())
+        }
+        val etProtein = android.widget.EditText(requireContext()).apply {
+            hint = "Proteínas (g)"
+            inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setText(meal.protein.toString())
+        }
+        val etCarbs = android.widget.EditText(requireContext()).apply {
+            hint = "Carboidratos (g)"
+            inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setText(meal.carbs.toString())
+        }
+        val etFat = android.widget.EditText(requireContext()).apply {
+            hint = "Gorduras (g)"
+            inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setText(meal.fat.toString())
+        }
+
+        val spinner = android.widget.Spinner(requireContext())
+        val categories = listOf("Café da manhã", "Almoço", "Jantar", "Lanche")
+        spinner.adapter = android.widget.ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            categories
+        )
+        spinner.setSelection(categories.indexOf(meal.category).coerceAtLeast(0))
+
+        layout.addView(etDescription)
+        layout.addView(spinner)
+        layout.addView(etCalories)
+        layout.addView(etProtein)
+        layout.addView(etCarbs)
+        layout.addView(etFat)
+
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Editar refeição")
+            .setView(layout)
+            .setPositiveButton("Salvar") { _, _ ->
+                val updated = meal.copy(
+                    description = etDescription.text.toString().ifEmpty { meal.description },
+                    category = spinner.selectedItem.toString(),
+                    calories = etCalories.text.toString().toIntOrNull() ?: meal.calories,
+                    protein = etProtein.text.toString().toFloatOrNull() ?: meal.protein,
+                    carbs = etCarbs.text.toString().toFloatOrNull() ?: meal.carbs,
+                    fat = etFat.text.toString().toFloatOrNull() ?: meal.fat
+                )
+                viewModel.updateMeal(updated)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     override fun onDestroyView() {

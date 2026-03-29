@@ -9,7 +9,8 @@ import com.vitaltrack.app.data.local.entity.MealEntity
 import com.vitaltrack.app.databinding.ItemMealBinding
 
 class MealAdapter(
-    private val onDelete: (MealEntity) -> Unit
+    private val onDelete: (MealEntity) -> Unit,
+    private val onEdit: (MealEntity) -> Unit
 ) : ListAdapter<MealEntity, MealAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemMealBinding) :
@@ -22,6 +23,7 @@ class MealAdapter(
             binding.tvTime.text = item.time
             binding.tvMacros.text = "P: ${item.protein}g | C: ${item.carbs}g | G: ${item.fat}g"
             binding.btnDelete.setOnClickListener { onDelete(item) }
+            binding.btnEdit.setOnClickListener { onEdit(item) }
         }
     }
 
