@@ -69,6 +69,9 @@ class MapViewModel @Inject constructor(
         isTracking = true
         startTime = System.currentTimeMillis()
 
+        context.getSharedPreferences("vital_prefs", Context.MODE_PRIVATE)
+            .edit().putBoolean("is_outdoor", true).apply()
+
         val request = LocationRequest.Builder(
             Priority.PRIORITY_HIGH_ACCURACY, 2000L
         ).setMinUpdateDistanceMeters(5f).build()
@@ -87,6 +90,11 @@ class MapViewModel @Inject constructor(
 
     fun stopTracking() {
         isTracking = false
+
+        context.getSharedPreferences("vital_prefs", Context.MODE_PRIVATE)
+            .edit().putBoolean("is_outdoor", false).apply()
+
+
         fusedLocationClient.removeLocationUpdates(locationCallback)
 
         viewModelScope.launch {
