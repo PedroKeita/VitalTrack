@@ -6,6 +6,7 @@ import com.vitaltrack.app.data.local.dao.GpsTrackingDao
 import com.vitaltrack.app.data.local.dao.StepCounterDao
 import com.vitaltrack.app.data.local.database.VitalTrackDatabase
 import com.vitaltrack.app.data.local.dao.UserDao
+import com.vitaltrack.app.data.local.dao.WaterIntakeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,5 +43,10 @@ object DatabaseModule {
     @Provides
     fun provideGpsTrackingDao(database: VitalTrackDatabase): GpsTrackingDao {
         return database.gpsTrackingDao()
+    }
+
+    @Provides
+    fun provideWaterIntakeDao(database: VitalTrackDatabase): WaterIntakeDao {
+        return database.waterIntakeDao()
     }
 }

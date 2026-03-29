@@ -61,6 +61,11 @@
             android:name=".ui.activity.MapActivity"
             android:exported="false" />
 
+        <!-- Hydration -->
+        <activity
+            android:name=".ui.activity.HydrationActivity"
+            android:exported="false" />
+
         <service
             android:name=".service.StepCounterService"
             android:foregroundServiceType="health"
