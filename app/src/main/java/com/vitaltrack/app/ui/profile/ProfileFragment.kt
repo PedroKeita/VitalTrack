@@ -1,5 +1,6 @@
 package com.vitaltrack.app.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.vitaltrack.app.R
 import com.vitaltrack.app.databinding.FragmentProfileBinding
+import com.vitaltrack.app.worker.HydrationReminderScheduler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,8 +35,35 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeViewModel()
-        setupButtons()
+
+        val prefs = requireContext().getSharedPreferences("vital_prefs", Context.MODE_PRIVATE)
+        binding.switchReminders.isChecked = prefs.getBoolean("reminders_enabled", true)
+        binding.etSleepHour.setText(prefs.getInt("sleep_hour", 22).toString())
+        binding.etWakeHour.setText(prefs.getInt("wake_hour", 7).toString())
+
+        binding.switchReminders.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("reminders_enabled", isChecked).apply()
+            if (isChecked) {
+                HydrationReminderScheduler.schedule(requireContext())
+            } else {
+                HydrationReminderScheduler.cancel(requireContext())
+            }
+        }
+
+        binding.btnSave.setOnClickListener {
+            if (validate()) {
+                val sleepHour = binding.etSleepHour.text.toString().toIntOrNull() ?: 22
+                val wakeHour = binding.etWakeHour.text.toString().toIntOrNull() ?: 7
+                prefs.edit()
+                    .putInt("sleep_hour", sleepHour)
+                    .putInt("wake_hour", wakeHour)
+                    .apply()
+                showConfirmDialog()
+            }
+        }
     }
+
+
 
     private fun observeViewModel() {
         lifecycleScope.launch {
