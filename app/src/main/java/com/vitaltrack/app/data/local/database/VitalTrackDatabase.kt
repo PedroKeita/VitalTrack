@@ -5,17 +5,20 @@ import androidx.room.RoomDatabase
 import com.vitaltrack.app.data.local.dao.GpsTrackingDao
 import com.vitaltrack.app.data.local.dao.StepCounterDao
 import com.vitaltrack.app.data.local.dao.UserDao
+import com.vitaltrack.app.data.local.dao.WaterIntakeDao
 import com.vitaltrack.app.data.local.entity.GpsTrackingEntity
 import com.vitaltrack.app.data.local.entity.StepCounterEntity
 import com.vitaltrack.app.data.local.entity.UserEntity
+import com.vitaltrack.app.data.local.entity.WaterIntakeEntity
 
 @Database(
     entities = [
         UserEntity::class,
         StepCounterEntity::class,
-        GpsTrackingEntity::class
+        GpsTrackingEntity::class,
+        WaterIntakeEntity::class
                ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 
@@ -23,4 +26,5 @@ abstract class VitalTrackDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun stepCounterDao(): StepCounterDao
     abstract fun gpsTrackingDao(): GpsTrackingDao
+    abstract fun waterIntakeDao(): WaterIntakeDao
 }
