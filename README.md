@@ -1,4 +1,4 @@
-# VitalTrack 🏃
+# VitalTrack 
 
 Aplicativo Android nativo para monitoramento integrado de saúde pessoal.
 
@@ -95,5 +95,4 @@ git clone https://github.com/PedroKeita/VitalTrack.git
 4. Execute em um dispositivo físico (sensores não funcionam em emulador)
 
 
-```
 
