@@ -35,4 +35,7 @@ class StepCounterRepository @Inject constructor(
     suspend fun getTodayStepsOnce(): Int? {
         return stepCounterDao.getStepsByDateOnce(today())
     }
+
+    suspend fun getLast(days: Int): List<StepCounterEntity> =
+        stepCounterDao.getLast(days)
 }

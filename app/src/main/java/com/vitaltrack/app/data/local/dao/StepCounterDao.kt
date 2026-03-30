@@ -21,4 +21,7 @@ interface StepCounterDao {
 
     @Query("SELECT steps FROM step_counter WHERE date = :date LIMIT 1")
     suspend fun getStepsByDateOnce(date: String): Int?
+
+    @Query("SELECT * FROM step_counter ORDER BY date DESC LIMIT :days")
+    suspend fun getLast(days: Int): List<StepCounterEntity>
 }

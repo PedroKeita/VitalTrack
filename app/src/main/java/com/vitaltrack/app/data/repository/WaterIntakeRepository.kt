@@ -38,4 +38,7 @@ class WaterIntakeRepository @Inject constructor(
     suspend fun delete(water: WaterIntakeEntity) {
         waterIntakeDao.delete(water)
     }
+
+    suspend fun getLast(days: Int): List<WaterIntakeDao.WaterDailySummary> =
+        waterIntakeDao.getLast(days)
 }
