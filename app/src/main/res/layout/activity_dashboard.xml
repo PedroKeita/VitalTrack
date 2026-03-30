@@ -30,12 +30,12 @@
 
         <!-- Score geral -->
         <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,19 +53,173 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
+                    android:id="@+id/tvHealthScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="85"
+                    android:text="0"
                     android:textSize="64sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF" />
 
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Resumo hidratação e passos -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Card Hidratação -->
+            <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardHydrationSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/surface">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💧 Hidratação"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvWaterProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="0ml"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/hydration" />
+
+                    <ProgressBar
+                        android:id="@+id/progressWater"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressTint="@color/hydration" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card Passos -->
+            <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardStepsSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/surface">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏃 Passos"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvStepsProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/activity" />
+
+                    <ProgressBar
+                        android:id="@+id/progressSteps"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressTint="@color/activity" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- Card Sono -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:background="@color/surface">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bom"
-                    android:textSize="18sp"
-                    android:textColor="#FFFFFF" />
+                    android:text="😴"
+                    android:textSize="28sp"
+                    android:layout_marginEnd="16dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvSleepScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sono"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/sleep" />
+
+                    <TextView
+                        android:id="@+id/tvSleepClassification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sem registro"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -87,19 +241,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:rowCount="3"
             android:useDefaultMargins="true">
 
-            <!-- Hidratação -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardHydration"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -125,16 +277,15 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Sono -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardSleep"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -160,16 +311,15 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Atividade -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardActivity"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,16 +345,15 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Nutrição -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardNutrition"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,15 +379,15 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Estatísticas -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardStats"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -264,16 +413,15 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Perfil -->
             <androidx.cardview.widget.CardView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/cardProfile"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
                 android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
