@@ -140,5 +140,7 @@ class SleepRepository @Inject constructor(
         sleepDao.delete(sleep)
     }
 
+    suspend fun getLast(days: Int): List<SleepEntity> =
+        sleepDao.getLast(days)
 
 }

@@ -27,4 +27,7 @@ interface SleepDao {
 
     @Delete
     suspend fun delete(sleep: SleepEntity)
+
+    @Query("SELECT * FROM sleep WHERE endTime IS NOT NULL ORDER BY id DESC LIMIT :days")
+    suspend fun getLast(days: Int): List<SleepEntity>
 }

@@ -18,4 +18,12 @@ interface WaterIntakeDao {
 
     @Delete
     suspend fun delete(water: WaterIntakeEntity)
+
+    @Query("SELECT date, SUM(amountMl) as total FROM water_intake GROUP BY date ORDER BY date DESC LIMIT :days")
+    suspend fun getLast(days: Int): List<WaterDailySummary>
+
+    data class WaterDailySummary(
+        val date: String,
+        val total: Int
+    )
 }
